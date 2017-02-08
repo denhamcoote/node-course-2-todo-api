@@ -1,3 +1,5 @@
+require('./config/config');
+
 const _ = require('lodash');
 const {ObjectID} = require('mongodb');
 const express = require('express');
@@ -8,7 +10,7 @@ var {Todo} = require('./models/todo');
 var {User} = require('./models/user');
 
 var app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
@@ -73,7 +75,6 @@ app.patch('/todos/:id', (req, res) => {
   var body = _.pick(req.body, ['text', 'completed']);
 
   if (!ObjectID.isValid(id)) {
-    console.log('aaa');
     return res.status(404).send();
   }
 
@@ -86,13 +87,11 @@ app.patch('/todos/:id', (req, res) => {
 
   Todo.findByIdAndUpdate(id, {$set: body}, {new: true}).then((todo) => {
     if (!todo) {
-      console.log('xxx');
       return res.status(404).send();
     }
 
     res.send({todo});
   }).catch((e) => {
-    console.log('yyy');
     res.status(400).send(e);
   })
 });
