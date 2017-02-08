@@ -7,6 +7,5 @@ if (env === 'development') {
   process.env.PORT = 3000;
   process.env.MONGODB_URI = 'mongodb://localhost:27017/TodoAppTest';
 } else if (env === 'production') {
-  process.env.PORT = 3000;
   process.env.MONGODB_URI = 'mongodb://todo:t0d0@ds135089.mlab.com:35089/todo-app-api';
 }
